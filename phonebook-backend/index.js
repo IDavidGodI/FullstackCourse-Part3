@@ -41,19 +41,40 @@ app.get("/info", (req,res)=>{
 
 app.get("/api/persons/:id", (req,res)=>{
   const id = Number(req.params.id);
-  persons = persons.find(person => person.id===id)
+  const person = persons.find(person => person.id===id)
   if (person)
     res.json(person)
   else
     res.status(404).end()
 })
 
+const generateId = () => Math.round(Math.random()*10000);
+
 app.post("/api/persons", (req,res)=>{
   const body = req.body;
-  body.id = Math.round(Math.random()*10000)
   console.log(body)
-  persons = persons.concat(body)
-  res.json(body)
+  if (!body.name || !body.number){
+    return res.status(400).json({
+      error: "Missing name or number."
+    })
+  }
+
+  body.name = body.name.trim()
+
+  if (persons.some((person)=>person.name===body.name)){
+    return res.status(409).json({
+      error: `${body.name} is already in the phonebook`
+    })
+  }
+
+  const person = 
+  {
+    name: body.name,
+    number: body.number,
+    id: generateId()
+  } 
+  persons = persons.concat(person)
+  res.json(person)
 })
 
 app.delete("/api/persons/:id", (req,res)=>{
