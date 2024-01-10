@@ -1,7 +1,9 @@
 const mongoose = require("mongoose")
 
 mongoose.set('strictQuery',false)
-mongoose.connect(process.env.MONGODB_URI)
+const uri = process.env.MONGODB_URI;
+console.log(uri)
+mongoose.connect(uri)
 
 const personSchema = new mongoose.Schema({
   name: String,
