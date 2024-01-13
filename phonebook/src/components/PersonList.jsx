@@ -5,7 +5,7 @@ const PersonList = ({people, handleRemove})=>{
     <>
       {
         people.map(person=>{
-          return <Person key={person.name} person={person} handleRemove={()=>handleRemove(person.id)}/>
+          return <Person key={person._id} person={person} handleRemove={()=>handleRemove(person._id)}/>
         })
       }
     </>

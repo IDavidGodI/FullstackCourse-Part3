@@ -61,10 +61,13 @@ app.post("/api/persons", (req,res)=>{
 })
 
 app.delete("/api/persons/:id", (req,res)=>{
-  const id = Number(req.params.id);
-  console.log("ID to delete:", id)
-  persons = persons.filter(person => person.id!==id)
-  res.status(204).end()
+  Person.findByIdAndDelete(req.params.id)
+    .then(result =>{
+      res.status(204).end()
+    })
+    .catch(error=>{
+      console.log(error)
+    })
 })
 
 
