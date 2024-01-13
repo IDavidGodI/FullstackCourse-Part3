@@ -50,9 +50,9 @@ const App = () => {
       const updatedPerdon = {...existentPerson, number: trimmedNumber}
 
       personsService
-      .update(existentPerson._id,updatedPerdon)
+      .update(existentPerson.id,updatedPerdon)
       .then(returnedPerson=>{
-        setPersons(persons.map(p=> p._id!==existentPerson._id? p : returnedPerson))
+        setPersons(persons.map(p=> p.id!==existentPerson.id? p : returnedPerson))
         setMessage({text: `${existentPerson.name} number modified`, success:true})
         setTimeout(()=>setMessage(null),5000)
         setNewName('')
@@ -78,7 +78,7 @@ const App = () => {
   }
 
   const removeContact = (id) =>{
-    const person = persons.find(p=>p._id===id)
+    const person = persons.find(p=>p.id===id)
     const confirmed = window.confirm(`Delete ${person.name}`)
     if (confirmed){
       personsService
@@ -87,7 +87,7 @@ const App = () => {
         setMessage({text: `${person.name} has been already removed from the server`, success:false})
         setTimeout(()=>setMessage(null),5000)
       })
-      setPersons(persons.filter(person => person._id!==id))
+      setPersons(persons.filter(person => person.id!==id))
     }
   }
 
