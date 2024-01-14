@@ -58,7 +58,7 @@ const App = () => {
         setNewName('')
         setNewNumber('')
       })
-      .catch(e=>{
+      .catch(error=>{
         setMessage({text: error.response.data.error, success:false})
         setTimeout(()=>setMessage(null),5000)
       })
