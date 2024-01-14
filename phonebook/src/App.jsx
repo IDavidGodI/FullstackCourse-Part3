@@ -59,7 +59,7 @@ const App = () => {
         setNewNumber('')
       })
       .catch(e=>{
-        setMessage({text: `${existentPerson.name} has been already removed from the server`, success:false})
+        setMessage({text: error.response.data.error, success:false})
         setTimeout(()=>setMessage(null),5000)
       })
       return
@@ -74,6 +74,10 @@ const App = () => {
       setTimeout(()=>setMessage(null),5000)
       setNewName('')
       setNewNumber('')
+    })
+    .catch(error => {
+      setMessage({text: error.response.data.error, success: false})
+      setTimeout(()=>setMessage(null), 5000)
     })
   }
 
